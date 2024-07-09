@@ -1,14 +1,11 @@
 from crewai import Agent
 from textwrap import dedent
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 import os
 
 class RelatedWorkWriterAgents:
     def __init__(self):
-        self.Gemini = ChatGoogleGenerativeAI(model='gemini-1.5-pro',
-                                          google_api_key=os.environ["GEMINI-API-KEY"])
-        self.OpenAI = ChatOpenAI(model='gpt-4o',
+        self.llm = ChatOpenAI(model='gpt-4o',
                                  api_key=os.environ["OPENAI-API-KEY"])
         
     def researcher_agent(self):
@@ -20,7 +17,7 @@ class RelatedWorkWriterAgents:
             # tools=[tool_1, tool_2],
             allow_delegation=False,
             verbose=True,
-            llm=self.OpenAI,
+            llm=self.llm,
         )
         
 
@@ -34,7 +31,7 @@ class RelatedWorkWriterAgents:
             # tools=[tool_1, tool_2],
             allow_delegation=False,
             verbose=True,
-            llm=self.OpenAI,
+            llm=self.llm,
         )
         
     def related_work_writer(self):
@@ -45,5 +42,5 @@ class RelatedWorkWriterAgents:
             # tools=[tool_1, tool_2],
             allow_delegation=False,
             verbose=True,
-            llm=self.OpenAI,
+            llm=self.llm,
         )
